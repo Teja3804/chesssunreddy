@@ -3,198 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Master - Advanced Chess Game</title>
+    <title>BhargavaTeja Reddy Guddeti - Data Structures Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Opening Page -->
-    <div id="openingPage" class="opening-page">
-        <div class="opening-container">
-            <header class="opening-header">
-                <h1><i class="fas fa-chess-king"></i> Chess Master</h1>
-                <p>Select your game settings and start playing!</p>
-            </header>
-
-            <div class="settings-panel">
-                <div class="setting-section">
-                    <h3><i class="fas fa-clock"></i> Time Controls</h3>
-                    <div class="time-controls">
-                        <button class="time-btn" data-time="1">1 min</button>
-                        <button class="time-btn" data-time="3">3 min</button>
-                        <button class="time-btn" data-time="5">5 min</button>
-                        <button class="time-btn" data-time="10">10 min</button>
-                        <button class="time-btn" data-time="15">15 min</button>
-                        <button class="time-btn" data-time="30">30 min</button>
-                    </div>
-                    <div class="increment-controls">
-                        <label>Increment: <span id="incrementValue">0</span>s</label>
-                        <input type="range" id="incrementSlider" min="0" max="30" value="0" step="5">
-                    </div>
-                </div>
-
-                <div class="setting-section">
-                    <h3><i class="fas fa-palette"></i> Board Theme</h3>
-                    <div class="theme-controls">
-                        <button class="theme-btn active" data-theme="classic">Classic</button>
-                        <button class="theme-btn" data-theme="modern">Modern</button>
-                        <button class="theme-btn" data-theme="wooden">Wooden</button>
-                    </div>
-                </div>
-
-                <div class="setting-section">
-                    <h3><i class="fas fa-history"></i> Previous Games</h3>
-                    <div class="previous-games" id="previousGames">
-                        <div class="no-games">No previous games yet</div>
-                    </div>
-                </div>
-
-                <div class="setting-section">
-                    <h3><i class="fas fa-users"></i> Game Mode</h3>
-                    <div class="game-mode">
-                        <label>
-                            <input type="radio" name="gameMode" value="oneDevice" checked>
-                            <span class="mode-label">Using One Device</span>
-                            <span class="mode-description">Both players play on the same device. Board automatically flips after each move.</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="gameMode" value="twoDevices">
-                            <span class="mode-label">Two Devices</span>
-                            <span class="mode-description">Each player uses their own device (future feature).</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="setting-section">
-                    <h3><i class="fas fa-cog"></i> Game Settings</h3>
-                    <div class="game-settings">
-                        <label>
-                            <input type="checkbox" id="soundToggle" checked>
-                            Sound effects
-                        </label>
-                        <label>
-                            <input type="checkbox" id="highlightToggle" checked>
-                            Highlight moves
-                        </label>
-                        <label>
-                            <input type="checkbox" id="notationToggle" checked>
-                            Algebraic notation
-                        </label>
-                    </div>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">&lt;/&gt;</span>
+                <span class="logo-name">BhargavaTeja</span>
             </div>
-
-            <div class="play-button-container">
-                <button id="testBtn" class="test-btn">
-                    <i class="fas fa-bug"></i> Test Game Logic
-                </button>
-                <button id="playBtn" class="play-btn">
-                    <i class="fas fa-play"></i> Start Game
-                </button>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#work" class="nav-link">My Work</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Game Page -->
-    <div id="gamePage" class="game-page" style="display: none;">
-        <div class="game-container">
-            <div class="game-header">
-                <button id="backToMenuBtn" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Menu
-                </button>
-                <div class="game-info">
-                    <span id="gameTimeControl">10 min</span>
-                    <span id="gameIncrement">+0s</span>
-                </div>
-                <button id="newGameBtn" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> New Game
-                </button>
-            </div>
-
-            <div class="game-content">
-                <div class="chess-section">
-                    <div class="player-info player-black">
-                        <div class="player-name">Black</div>
-                        <div class="timer" id="blackTimer">10:00</div>
-                    </div>
-
-                    <div class="chess-container">
-                        <div class="chessboard" id="chessboard"></div>
-                        <div class="board-labels">
-                            <div class="file-labels">
-                                <span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span>
-                            </div>
-                            <div class="rank-labels">
-                                <span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="player-info player-white">
-                        <div class="player-name">White</div>
-                        <div class="timer" id="whiteTimer">10:00</div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Hello, I'm</span>
+                        <span class="title-name">BhargavaTeja Reddy Guddeti</span>
+                        <span class="title-role">Information Systems Graduate & Software Developer</span>
+                    </h1>
+                    <p class="hero-description">
+                        Master's in Information Systems graduate with expertise in software development, 
+                        data structures, and building innovative applications. Passionate about creating 
+                        efficient solutions and exploring the intersection of technology and finance.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View My Work</a>
+                        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                     </div>
                 </div>
-
-                <div class="game-sidebar">
-                                    <div class="sidebar-section">
-                    <h3><i class="fas fa-info-circle"></i> Game Status</h3>
-                    <div class="game-status" id="gameStatus">White to move</div>
-                    <div class="auto-flip-info" id="autoFlipInfo" style="display: none;">
-                        <i class="fas fa-sync-alt"></i> Board will auto-flip after each move
-                    </div>
-                </div>
-
-                    <div class="sidebar-section">
-                        <h3><i class="fas fa-history"></i> Move History</h3>
-                        <div class="move-history" id="moveHistory">
-                            <div class="move-number">1.</div>
-                            <div class="moves"></div>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3><i class="fas fa-chess-board"></i> Captured Pieces</h3>
-                        <div class="captured-pieces">
-                            <div class="captured-white" id="capturedWhite">
-                                <h4>White</h4>
-                            </div>
-                            <div class="captured-black" id="capturedBlack">
-                                <h4>Black</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3><i class="fas fa-cog"></i> Quick Settings</h3>
-                        <div class="quick-settings">
-                            <button id="flipBoardBtn" class="btn btn-secondary">
-                                <i class="fas fa-sync-alt"></i> Flip Board
-                            </button>
-                            <button id="resignBtn" class="btn btn-danger">
-                                <i class="fas fa-flag"></i> Resign
-                            </button>
+                <div class="hero-visual">
+                    <div class="data-structure-animation">
+                        <div class="binary-tree">
+                            <div class="node root">You</div>
+                            <div class="node left">Skills</div>
+                            <div class="node right">Projects</div>
+                            <div class="node left-left">Code</div>
+                            <div class="node left-right">Design</div>
+                            <div class="node right-left">Algorithms</div>
+                            <div class="node right-right">Innovation</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
 
-        <!-- Game Over Overlay -->
-        <div class="game-overlay" id="gameOverlay" style="display: none;">
-            <div class="overlay-content">
-                <h2 id="overlayTitle">Game Over</h2>
-                <p id="overlayMessage">Checkmate!</p>
-                <div class="overlay-buttons">
-                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
-                    <button id="backToMenuBtn2" class="btn btn-secondary">Back to Menu</button>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        I'm a Master's graduate in Information Systems from Saint Louis University with a strong foundation 
+                        in software development and data structures. My journey spans from Civil Engineering at NIT Rourkela 
+                        to becoming a passionate software developer, creating applications that solve real-world problems 
+                        in finance, healthcare, and gaming.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">4+</div>
+                            <div class="stat-label">Major Projects</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Technologies</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Degrees</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="array-visualization">
+                        <div class="array-container">
+                            <div class="array-element" data-value="Passion">Passion</div>
+                            <div class="array-element" data-value="Dedication">Dedication</div>
+                            <div class="array-element" data-value="Creativity">Creativity</div>
+                            <div class="array-element" data-value="Problem Solving">Problem Solving</div>
+                            <div class="array-element" data-value="Learning">Learning</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="chess.js"></script>
-    <script src="app.js"></script>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Mutual Funds Investment App</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/Teja3804/asset-reddy" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/Teja3804/asset-reddy" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A comprehensive mutual funds investment application that helps users track, analyze, 
+                        and manage their investment portfolio with real-time market data and performance analytics.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-card chess-project">
+                    <div class="project-header">
+                        <h3 class="project-title">Interactive Chess Game</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/Teja3804/chesssunreddy" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/Teja3804/chesssunreddy" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="chess-game-container">
+                        <div class="chess-info">
+                            <p class="chess-description">Play against the computer! You are white, computer is black.</p>
+                            <div class="game-status">
+                                <span id="game-status">Your turn (White)</span>
+                                <button id="reset-game" class="reset-btn">New Game</button>
+                            </div>
+                        </div>
+                        <div class="chess-board" id="chess-board">
+                            <!-- Chess board will be generated by JavaScript -->
+                            <div class="loading-message">Loading chess board...</div>
+                        </div>
+                        <div class="chess-fallback" id="chess-fallback" style="display: none;">
+                            <p>Chess board failed to load. Please refresh the page.</p>
+                        </div>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Patient Portal System <span class="status-badge in-progress">In Progress</span></h3>
+                        <div class="project-links">
+                            <a href="https://github.com/Teja3804" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A comprehensive healthcare management system that facilitates seamless communication 
+                        between doctors and patients, featuring appointment scheduling, medical records, 
+                        and secure messaging capabilities. Currently in development.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Algorithmic Trading Platform <span class="status-badge in-progress">In Progress</span></h3>
+                        <div class="project-links">
+                            <a href="https://github.com/Teja3804" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        An advanced algorithmic trading platform that enables automated trading strategies, 
+                        real-time market analysis, and portfolio optimization using machine learning algorithms 
+                        and quantitative analysis techniques. Currently in development.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">DSA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">Education & Certifications</h2>
+            <div class="education-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Master of Information Systems</h3>
+                        <p class="timeline-institution">Saint Louis University, Saint Louis, Missouri</p>
+                        <p class="timeline-period">2024 - 2025</p>
+                        <p class="timeline-description">
+                            Advanced studies in information systems, software development, database management, 
+                            and business intelligence. Focused on bridging technology and business solutions.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Bachelor of Civil Engineering</h3>
+                        <p class="timeline-institution">NIT Rourkela, India</p>
+                        <p class="timeline-period">2019 - 2023</p>
+                        <p class="timeline-description">
+                            Comprehensive engineering education with strong foundation in mathematics, 
+                            problem-solving, and analytical thinking. Developed technical skills that 
+                            later transitioned into software development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-content">
+                <div class="skills-category">
+                    <h3 class="category-title">Programming Languages</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-name">Python</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">JavaScript</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">C++</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">SQL</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <h3 class="category-title">Data Structures & Algorithms</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-name">Data Structures & Algorithms</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Database Design</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Software Development</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Problem Solving</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Work & Progress Section -->
+    <section id="work" class="work">
+        <div class="container">
+            <h2 class="section-title">My Work & Progress</h2>
+            <div class="work-content">
+                <div class="work-links">
+                    <a href="https://github.com/Teja3804" class="work-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                        <p>View my repositories and code contributions</p>
+                    </a>
+                    <a href="https://leetcode.com/u/user5873Y/" class="work-link" target="_blank">
+                        <i class="fas fa-code"></i>
+                        <span>LeetCode</span>
+                        <p>Check out my problem-solving progress</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 class="contact-subtitle">Let's Connect!</h3>
+                    <p class="contact-description">
+                        I'm always interested in discussing new opportunities, 
+                        collaborating on projects, or just having a chat about software development and data structures!
+                    </p>
+                    <div class="contact-links">
+                        <a href="mailto:guddeti.bhargavareddy@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>guddeti.bhargavareddy@gmail.com</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/bhargava-teja-reddy-guddeti-243983228/" class="contact-link" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                            <span>linkedin.com/in/bhargava-teja-reddy-guddeti-243983228/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Goals Section -->
+    <section id="goals" class="goals">
+        <div class="container">
+            <h2 class="section-title">What I'm Looking For</h2>
+            <div class="goals-content">
+                <div class="goals-text">
+                    <h3 class="goals-subtitle">A Good Software Role</h3>
+                    <p class="goals-description">
+                        I'm seeking a software development position where I can understand and develop myself 
+                        in the field of technology and problem-solving. I'm passionate about creating efficient 
+                        solutions, learning new technologies, and contributing to meaningful projects that 
+                        make a real impact. I'm looking for an environment that encourages growth, innovation, 
+                        and continuous learning.
+                    </p>
+                    <div class="goals-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Innovation & Learning</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-puzzle-piece"></i>
+                            <span>Problem Solving</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-rocket"></i>
+                            <span>Growth & Development</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-users"></i>
+                            <span>Team Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">&copy; 2024 BhargavaTeja Reddy Guddeti. Built with passion for data structures.</p>
+                <div class="footer-links">
+                    <a href="#home" class="footer-link">Home</a>
+                    <a href="#about" class="footer-link">About</a>
+                    <a href="#projects" class="footer-link">Projects</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
